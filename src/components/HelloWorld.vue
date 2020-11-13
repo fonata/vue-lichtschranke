@@ -2,9 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+      --{{ hier_steht_text }}--22
     </p>
     <h3>Installed CLI Plugins</h3>
     <ul>
@@ -34,8 +32,9 @@
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
-  }
+    msg: String,
+    hier_steht_text: String
+  }  
 }
 </script>
 
@@ -43,6 +42,7 @@ export default {
 <style scoped>
 h3 {
   margin: 40px 0 0;
+  font-size: 10px;
 }
 ul {
   list-style-type: none;

@@ -1,19 +1,37 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Lichtschranke name="LS-1" value="1" />
+    <Lichtschranke name="LS-2" value="0" />
+    <Lichtschranke name="LS-3" value="1" />
+    <Lichtschranke name="LS-4" value="1" />
+    <Lichtschranke name="LS-5" value="1" />
+    <button  v-on:click="machHalt">Sage LS-3, dass sie aus ist</button>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Lichtschranke from './components/Lichtschranke.vue'
+import events from 'events';
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Lichtschranke
+  },
+  created: function () {
+    this.$on('update-lichtschranke', function (nameUndWert) {
+      console.log('Ok, ' + nameUndWert.value + ' ist der neue Wert von ' + nameUndWert.name);
+    });
+  },
+  methods: {
+    machHalt: function() {
+console.log(events);
+      events.$emit('update-lichtschranke', {name: 'LS-3', value: '0'})
+    }
   }
 }
+
+
 </script>
 
 <style>
