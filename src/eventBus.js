@@ -1,4 +1,4 @@
-// Diese Datei existiert, damit wir den Lichtschranken Events schicken können
+// Diese Datei existiert, damit wir den Lichtschranken Events schicken kÃ¶nnen
 import Vue from 'vue'
 
 var eventBus = new Vue();
