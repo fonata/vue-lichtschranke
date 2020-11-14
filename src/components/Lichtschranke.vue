@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import events from '../events';
+import eventBus from '../eventBus';
 
 export default {
   name: 'HelloWorld',
@@ -20,7 +20,7 @@ export default {
     value: String
   },
   created: function () {
-    events.$on('update-lichtschranke', function (nameUndWert) {
+    eventBus.$on('update-lichtschranke', function (nameUndWert) {
       if (nameUndWert.name == this.name) {
         this.value = nameUndWert.value;
       }

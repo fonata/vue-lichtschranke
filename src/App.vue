@@ -12,21 +12,22 @@
 
 <script>
 import Lichtschranke from './components/Lichtschranke.vue'
-import events from 'events';
+import eventBus from './eventBus';
+
 export default {
   name: 'App',
   components: {
     Lichtschranke
   },
   created: function () {
-    this.$on('update-lichtschranke', function (nameUndWert) {
+    eventBus.$on('update-lichtschranke', function (nameUndWert) {
       console.log('Ok, ' + nameUndWert.value + ' ist der neue Wert von ' + nameUndWert.name);
     });
   },
   methods: {
     machHalt: function() {
 console.log(events);
-      events.$emit('update-lichtschranke', {name: 'LS-3', value: '0'})
+      eventBus.$emit('update-lichtschranke', {name: 'LS-3', value: '0'})
     }
   }
 }
