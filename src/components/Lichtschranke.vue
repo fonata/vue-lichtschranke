@@ -47,14 +47,17 @@ export default {
   display: inline-block;
   margin-right: 10px;
 }
+
 .lampe.active {
   color: green;
 }
+
 .lichtschranke {
   /* display: inline-block; */
   width: 150px;
   text-align: left;
   padding: 5px;
   border: 1px solid black;
+  margin-bottom: -1px;
 }
 </style>
