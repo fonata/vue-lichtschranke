@@ -1,31 +1,35 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <img alt="Vue logo" src="./assets/logo.png" />
     <fieldset>
       <legend>Lichtschranken</legend>
-      <div id="lichtschranken">
-        Liste wird geladen...
-      </div>
-    </fieldset><br>
+      <div id="lichtschranken">Liste wird geladen...</div>
+    </fieldset>
+    <br />
     <button v-on:click="sendToServer">Nachricht an Server schicken</button>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import Lichtschranke from './components/Lichtschranke.vue'
-import eventBus from './eventBus';
+import Vue from "vue";
+import Lichtschranke from "./components/Lichtschranke.vue";
+import eventBus from "./eventBus";
 
 export default {
-  name: 'App',
+  name: "App",
   created: function () {
-    eventBus.$on('update-input', function (nameUndWert) {
-      console.log('Ok, ' + nameUndWert.value + ' ist der neue Wert von ' + nameUndWert.name);
+    eventBus.$on("update-input", function (nameUndWert) {
+      console.log(
+        "Ok, " +
+          nameUndWert.value +
+          " ist der neue Wert von " +
+          nameUndWert.name
+      );
     });
 
-    eventBus.$on('set-inputs', function (inputs) {
-      let lichtschranken = document.getElementById('lichtschranken');
-      lichtschranken.textContent = ''; // Den Text "Bitte warten..." brauchen wir nicht mehr.
+    eventBus.$on("set-inputs", function (inputs) {
+      let lichtschranken = document.getElementById("lichtschranken");
+      lichtschranken.textContent = ""; // Den Text "Bitte warten..." brauchen wir nicht mehr.
 
       for (let i = 0; i < inputs.length; i++) {
         var ComponentClass = Vue.extend(Lichtschranke);
@@ -33,9 +37,9 @@ export default {
           data() {
             return {
               name: inputs[i].name,
-              value: inputs[i].value
-            }
-          }
+              value: inputs[i].value,
+            };
+          },
         });
         instance.$mount();
         lichtschranken.appendChild(instance.$el);
@@ -44,12 +48,10 @@ export default {
   },
   methods: {
     sendToServer: function () {
-      eventBus.socket.send('wichtige-botschaft-an-den-server')
-    }
-  }
-}
-
-
+      eventBus.socket.send("wichtige-botschaft-an-den-server");
+    },
+  },
+};
 </script>
 
 <style>

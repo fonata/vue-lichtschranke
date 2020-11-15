@@ -11,23 +11,23 @@
 </template>
 
 <script>
-import eventBus from '../eventBus';
+import eventBus from "../eventBus";
 
 export default {
-  name: 'Lichtschranke',
+  name: "Lichtschranke",
 
   data() {
     return {
       name: 1234,
-      value: 1234
-    }
+      value: 1234,
+    };
   },
 
   created: function () {
     var lichtschranke = this;
-    eventBus.$on('update-input', function (nameUndWert) {
+    eventBus.$on("update-input", function (nameUndWert) {
       if (nameUndWert.name === lichtschranke.name) {
-        console.log(lichtschranke.name + ' fühlt sich angesprochen.')
+        console.log(lichtschranke.name + " fühlt sich angesprochen.");
         lichtschranke.value = nameUndWert.value;
       }
     });
@@ -35,10 +35,10 @@ export default {
 
   methods: {
     sagDeinenNamen: function () {
-      console.log('Hello, ich bin ' + this.name);
-    }
-  }
-}
+      console.log("Hello, ich bin " + this.name);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -53,7 +53,6 @@ export default {
 }
 
 .lichtschranke {
-  /* display: inline-block; */
   width: 150px;
   text-align: left;
   padding: 5px;
