@@ -14,7 +14,7 @@
 import eventBus from '../eventBus';
 
 export default {
-  name: 'HelloWorld',
+  name: 'Lichtschranke',
   props: {
     name: String,
     value: String
