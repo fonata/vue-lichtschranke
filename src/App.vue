@@ -19,6 +19,7 @@ export default {
   name: "App",
   created: function () {
     eventBus.$on("set-inputs", function (inputs) {
+      // Der Server hat uns eine Liste der Lichtschranken geschickt.
       let lichtschranken = document.getElementById("lichtschranken");
       lichtschranken.textContent = ""; // Den Text "Bitte warten..." brauchen wir nicht mehr.
 
@@ -39,6 +40,8 @@ export default {
   },
   methods: {
     sendToServer: function () {
+      // Dieser Event soll zeigen, wie wir eine Nachricht an den Server
+      // schickt können - zum Beispiel zum Ausschalten der Maschine.
       eventBus.socket.send("wichtige-botschaft-an-den-server");
     },
   },

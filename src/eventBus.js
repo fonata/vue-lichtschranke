@@ -13,6 +13,7 @@ let eventBus = new Vue({
     },
     created: function () {
         this.socket.onopen = function () {
+            // Die Verbindung wurde erfolgreich hergestellt.
             // Den Server fragen, was es für Lichtschranken gibt.
             this.send("get-inputs");
         };
@@ -21,7 +22,7 @@ let eventBus = new Vue({
                 let data = JSON.parse(event.data);
                 console.log('The server said: ' + JSON.stringify(data, null, 4));
 
-                // Die Nachricht vom Server innerhalb der Vue-Anwendung weiterverteilen
+                // Die Nachricht vom Server innerhalb der Vue-Anwendung weiterverteilen.
                 eventBus.$emit(data.event, data.payload)
             } catch (e) {
                 console.log('[ERROR] The server sent invalid JSON: ' + event.data);

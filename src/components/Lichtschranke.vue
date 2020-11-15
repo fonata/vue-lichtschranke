@@ -17,15 +17,18 @@ export default {
   name: "Lichtschranke",
 
   data() {
+    // Diese Funktion gibt zurück, welche dynamischen Werte die
+    // Lichtschranke hat. Hier interessiert nur der Key.
     return {
-      name: 1234,
-      value: 1234,
+      name: 'Wird zur Laufzeit vom Server geschickt.',
+      value: 1,
     };
   },
 
   created: function () {
     var lichtschranke = this;
     eventBus.$on("update-input", function (nameUndWert) {
+      // Der Server hat einen neuen Wert für eine Lichtschranke geschickt.
       if (nameUndWert.name === lichtschranke.name) {
         console.log(lichtschranke.name + " fühlt sich angesprochen.");
         lichtschranke.value = nameUndWert.value;
