@@ -1,37 +1,51 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <Lichtschranke name="LS-1" value="1" />
-    <Lichtschranke name="LS-2" value="0" />
-    <Lichtschranke name="LS-3" value="1" />
-    <Lichtschranke name="LS-4" value="1" />
-    <Lichtschranke name="LS-5" value="1" />
-    <button  v-on:click="machHalt">Sage LS-3, dass sie aus ist</button>
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <fieldset>
+      <legend>Lichtschranken</legend>
+      <div id="lichtschranken">Liste wird geladen...</div>
+    </fieldset>
+    <br />
+    <button v-on:click="sendToServer">Nachricht an Server schicken</button>
   </div>
 </template>
 
 <script>
-import Lichtschranke from './components/Lichtschranke.vue'
-import events from 'events';
+import Vue from "vue";
+import Lichtschranke from "./components/Lichtschranke.vue";
+import eventBus from "./eventBus";
+
 export default {
-  name: 'App',
-  components: {
-    Lichtschranke
-  },
+  name: "App",
   created: function () {
-    this.$on('update-lichtschranke', function (nameUndWert) {
-      console.log('Ok, ' + nameUndWert.value + ' ist der neue Wert von ' + nameUndWert.name);
+    eventBus.$on("set-inputs", function (inputs) {
+      // Der Server hat uns eine Liste der Lichtschranken geschickt.
+      let lichtschranken = document.getElementById("lichtschranken");
+      lichtschranken.textContent = ""; // Den Text "Bitte warten..." brauchen wir nicht mehr.
+
+      for (let i = 0; i < inputs.length; i++) {
+        var ComponentClass = Vue.extend(Lichtschranke);
+        var instance = new ComponentClass({
+          data() {
+            return {
+              name: inputs[i].name,
+              value: inputs[i].value,
+            };
+          },
+        });
+        instance.$mount();
+        lichtschranken.appendChild(instance.$el);
+      }
     });
   },
   methods: {
-    machHalt: function() {
-console.log(events);
-      events.$emit('update-lichtschranke', {name: 'LS-3', value: '0'})
-    }
-  }
-}
-
-
+    sendToServer: function () {
+      // Dieser Event soll zeigen, wie wir eine Nachricht an den Server
+      // schickt können - zum Beispiel zum Ausschalten der Maschine.
+      eventBus.socket.send("wichtige-botschaft-an-den-server");
+    },
+  },
+};
 </script>
 
 <style>
@@ -42,5 +56,10 @@ console.log(events);
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+fieldset {
+  display: inline-block;
+  box-shadow: 1px 4px 4px #4444dd;
 }
 </style>
