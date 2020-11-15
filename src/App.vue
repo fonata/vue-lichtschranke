@@ -19,7 +19,7 @@ import eventBus from './eventBus';
 export default {
   name: 'App',
   created: function () {
-    eventBus.$on('update-lichtschranke', function (nameUndWert) {
+    eventBus.$on('update-input', function (nameUndWert) {
       console.log('Ok, ' + nameUndWert.value + ' ist der neue Wert von ' + nameUndWert.name);
     });
 

@@ -2,7 +2,7 @@
 
 <template>
   <div class="lichtschranke" v-on:click="sagDeinenNamen">
-    <span v-bind:class="{ active: value == '1', lampe: 1 }">
+    <span v-bind:class="{ active: value == 1, lampe: 1 }">
       <!-- das folgende Zeichen ist ein Kreis -->
       &#x25cf;
     </span>
@@ -15,20 +15,27 @@ import eventBus from '../eventBus';
 
 export default {
   name: 'Lichtschranke',
-  props: {
-    name: String,
-    value: String
+
+  data() {
+    return {
+      name: 1234,
+      value: 1234
+    }
   },
+
   created: function () {
-    eventBus.$on('update-lichtschranke', function (nameUndWert) {
-      if (nameUndWert.name == this.name) {
-        this.value = nameUndWert.value;
+    var lichtschranke = this;
+    eventBus.$on('update-input', function (nameUndWert) {
+      if (nameUndWert.name === lichtschranke.name) {
+        console.log(lichtschranke.name + ' fühlt sich angesprochen.')
+        lichtschranke.value = nameUndWert.value;
       }
-    });       
+    });
   },
+
   methods: {
     sagDeinenNamen: function () {
-       console.log('Hello, ich bin ' + this.name);       
+      console.log('Hello, ich bin ' + this.name);
     }
   }
 }
