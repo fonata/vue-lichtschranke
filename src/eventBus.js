@@ -12,7 +12,6 @@ let eventBus = new Vue({
         return data;
     },
     created: function () {
-        console.log('created')
         this.socket.onopen = function () {
             // Den Server fragen, was es für Lichtschranken gibt.
             this.send("get-inputs");

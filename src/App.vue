@@ -18,15 +18,6 @@ import eventBus from "./eventBus";
 export default {
   name: "App",
   created: function () {
-    eventBus.$on("update-input", function (nameUndWert) {
-      console.log(
-        "Ok, " +
-          nameUndWert.value +
-          " ist der neue Wert von " +
-          nameUndWert.name
-      );
-    });
-
     eventBus.$on("set-inputs", function (inputs) {
       let lichtschranken = document.getElementById("lichtschranken");
       lichtschranken.textContent = ""; // Den Text "Bitte warten..." brauchen wir nicht mehr.
