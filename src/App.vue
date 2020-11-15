@@ -7,7 +7,7 @@
         Liste wird geladen...
       </div>
     </fieldset><br>
-    <button  v-on:click="machHalt">Sage LS-3, dass sie aus ist</button>
+    <button v-on:click="sendToServer">Nachricht an Server schicken</button>
   </div>
 </template>
 
@@ -43,9 +43,8 @@ export default {
     });
   },
   methods: {
-    machHalt: function() {
-console.log(events);
-      eventBus.$emit('update-lichtschranke', {name: 'LS-3', value: '0'})
+    sendToServer: function () {
+      eventBus.socket.send('wichtige-botschaft-an-den-server')
     }
   }
 }
